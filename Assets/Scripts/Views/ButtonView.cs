@@ -4,8 +4,8 @@ using UnityEngine.EventSystems;
 
 public class ButtonView : MonoBehaviour, IPointerClickHandler
 {
-    public event Action<ETypes.Tap> OnTap;
-    [SerializeField] private ETypes.Tap tapType;
+    public event Action<Tap> OnTap;
+    [SerializeField] private Tap tapType;
 
     public void OnPointerClick(PointerEventData eventData)
     {

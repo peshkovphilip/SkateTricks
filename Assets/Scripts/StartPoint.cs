@@ -22,8 +22,4 @@ public class StartPoint : MonoBehaviour
     {
 
     }
-    private void OnDestroy()
-    {
-        controllers.Destroyer();
-    }
 }

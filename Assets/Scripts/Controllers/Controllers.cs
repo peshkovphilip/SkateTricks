@@ -1,14 +1,12 @@
 using System.Collections.Generic;
-public class Controllers : IStarter, IDestroyer, IUpdater
+public class Controllers : IStarter, IUpdater
 {
     private readonly List<IStarter> controllerStarters;
-    private readonly List<IDestroyer> controllerDestroyers;
     private readonly List<IUpdater> controllerUpdaters;
 
     internal Controllers()
     {
         controllerStarters = new List<IStarter>();
-        controllerDestroyers = new List<IDestroyer>();
         controllerUpdaters = new List<IUpdater>();
     }
 
@@ -17,10 +15,6 @@ public class Controllers : IStarter, IDestroyer, IUpdater
         if (controller is IStarter controllerStarter)
         {
             controllerStarters.Add(controllerStarter);
-        }
-        if (controller is IDestroyer controllerDestroyer)
-        {
-            controllerDestroyers.Add(controllerDestroyer);
         }
         if (controller is IUpdater controllerUpdater)
         {
@@ -34,14 +28,6 @@ public class Controllers : IStarter, IDestroyer, IUpdater
         foreach (IStarter starter in controllerStarters)
         {
             starter.Starter();
-        }
-    }
-
-    public void Destroyer()
-    {
-        foreach (IDestroyer destroyer in controllerDestroyers)
-        {
-            destroyer.Destroyer();
         }
     }
 
