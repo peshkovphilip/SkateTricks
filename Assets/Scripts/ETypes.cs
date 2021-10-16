@@ -12,3 +12,22 @@ public enum LevelLines
     Middle = 1,
     Near = 2
 }
+
+public enum ItemType
+{
+    Coin = 0,
+    SpeedUp = 1,
+    Finish = 2
+}
+
+public enum BarType
+{
+    Coin = 0,
+    Life = 1
+}
+
+public enum PanelType
+{
+    LevelDone = 0,
+    LevelLose = 1
+}
