@@ -15,4 +15,6 @@ public class Consts : MonoBehaviour
         }
     }
 
+    public int DiffBetweenLayersAndLines { get => 6; private set { } }
+
 }

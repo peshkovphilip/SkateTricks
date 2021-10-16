@@ -57,15 +57,24 @@
     <Compile Include="Assets\Scripts\Models\PlayerModel.cs" />
     <Compile Include="Assets\Scripts\ETypes.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IStarter.cs" />
+    <Compile Include="Assets\Scripts\Consts.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Views\PlayerView.cs" />
     <Compile Include="Assets\Scripts\Views\ButtonView.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUpdater.cs" />
+    <Compile Include="Assets\Scripts\Views\LevelView.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IController.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDestroyer.cs" />
     <Compile Include="Assets\Scripts\Controllers\Controllers.cs" />
-    <Compile Include="Assets\Scripts\Consts.cs" />
-    <Compile Include="Assets\Scripts\Views\Levels\Level1View.cs" />
+    <Compile Include="Assets\Scripts\Utils.cs" />
+    <Compile Include="Assets\Scripts\Views\ItemView.cs" />
+    <Compile Include="Assets\Scripts\GameParams.cs" />
+    <Compile Include="Assets\Scripts\Views\BarCoinsView.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BarsController.cs" />
+    <Compile Include="Assets\Scripts\Views\UICanvasView.cs" />
+    <Compile Include="Assets\Scripts\Controllers\PanelsController.cs" />
+    <Compile Include="Assets\Scripts\Views\PanelView.cs" />
+    <Compile Include="Assets\Scripts\Views\EnvironmentView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
