@@ -17,9 +17,9 @@ public class PlayerController : IStarter, IUpdater
     {
         Debug.Log("start PlayerController");
 
-        playerView = Object.FindObjectOfType<PlayerView>(); // думаю в стартере поиском делать можно, еще не известно насколько сложным может получиться конструктор этого контроллера
+        playerView = Object.FindObjectOfType<PlayerView>(); 
         playerModel = Object.FindObjectOfType<PlayerModel>();
-        buttons = Object.FindObjectsOfType<ButtonView>();
+        buttons = Object.FindObjectsOfType<ButtonView>(); //как это передать в конструктор без поиска и не присваивая все объекты в инспекторе?
         foreach (ButtonView button in buttons)
         {
             button.OnTap += TryAction;

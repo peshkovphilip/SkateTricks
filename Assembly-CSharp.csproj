@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,28 +53,31 @@
     <UnityVersion>2021.1.21f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Scripts\StartPoint.cs" />
     <Compile Include="Assets\Scripts\Models\PlayerModel.cs" />
     <Compile Include="Assets\Scripts\ETypes.cs" />
+    <Compile Include="Assets\Scripts\Views\UICanvasView.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IStarter.cs" />
+    <Compile Include="Assets\Scripts\Views\BarCoinsView.cs" />
     <Compile Include="Assets\Scripts\Consts.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Utils.cs" />
+    <Compile Include="Assets\Scripts\Views\ItemView.cs" />
+    <Compile Include="Assets\Scripts\GameParams.cs" />
+    <Compile Include="Assets\Scripts\Views\EnvironmentView.cs" />
     <Compile Include="Assets\Scripts\Views\PlayerView.cs" />
     <Compile Include="Assets\Scripts\Views\ButtonView.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUpdater.cs" />
     <Compile Include="Assets\Scripts\Views\LevelView.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IController.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\IDestroyer.cs" />
-    <Compile Include="Assets\Scripts\Controllers\Controllers.cs" />
-    <Compile Include="Assets\Scripts\Utils.cs" />
-    <Compile Include="Assets\Scripts\Views\ItemView.cs" />
-    <Compile Include="Assets\Scripts\GameParams.cs" />
-    <Compile Include="Assets\Scripts\Views\BarCoinsView.cs" />
-    <Compile Include="Assets\Scripts\Controllers\BarsController.cs" />
-    <Compile Include="Assets\Scripts\Views\UICanvasView.cs" />
-    <Compile Include="Assets\Scripts\Controllers\PanelsController.cs" />
     <Compile Include="Assets\Scripts\Views\PanelView.cs" />
-    <Compile Include="Assets\Scripts\Views\EnvironmentView.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IDestroyer.cs" />
+    <Compile Include="Assets\Scripts\Controllers\PanelsController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Controllers.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BarsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
