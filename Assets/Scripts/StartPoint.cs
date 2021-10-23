@@ -10,6 +10,7 @@ public class StartPoint : MonoBehaviour
         controllers.Add(new PlayerController());
         controllers.Add(new BarsController());
         controllers.Add(new PanelsController());
+        controllers.Add(new ButterflyController());
         controllers.Starter();
     }
 
