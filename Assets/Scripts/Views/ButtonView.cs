@@ -9,7 +9,7 @@ public class ButtonView : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
+        Debug.Log("type : " + tapType + " Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
         OnTap?.Invoke(tapType);
     }
 }

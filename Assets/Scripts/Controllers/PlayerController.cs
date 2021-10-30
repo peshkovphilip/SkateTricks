@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerController : IStarter, IUpdater
 {
@@ -21,17 +23,17 @@ public class PlayerController : IStarter, IUpdater
         playerModel = Object.FindObjectOfType<PlayerModel>();
         playerRigidBody = playerView.GetComponentInChildren<Rigidbody2D>();
 
-        buttons = Object.FindObjectsOfType<ButtonView>(); //как это передать в конструктор без поиска и не присваивая все объекты в инспекторе?
+        buttons = Object.FindObjectsOfType<ButtonView>(true); //как это передать в конструктор без поиска и не присваивая все объекты в инспекторе?
         foreach (ButtonView button in buttons)
         {
             button.OnTap += TryAction;
         }
-        items = Object.FindObjectsOfType<ItemView>();
+        items = Object.FindObjectsOfType<ItemView>(true);
         foreach (ItemView item in items)
         {
             item.OnEnter += GetItem;
         }
-        environments = Object.FindObjectsOfType<EnvironmentView>();
+        environments = Object.FindObjectsOfType<EnvironmentView>(true);
         foreach (EnvironmentView environment in environments)
         {
             environment.OnEnter += EnvironmentCollision;
@@ -58,38 +60,52 @@ public class PlayerController : IStarter, IUpdater
                 playerView.animator.SetInteger("state", 0);
             }
         }
+        
+        
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        {
+            MoveUp();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+        {
+            MoveDown();
+        }
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.O))
+        {
+            Jump();
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.L))
+        {
+            Push();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Retry();
+        }
     }
+
 
     public void TryAction(Tap typeTap)
     {
         if (typeTap == Tap.Up)
         {
-            Debug.Log("move up");
-            if (currentLinePlayerStood > 0)
-            {
-                currentLinePlayerStood--;
-                MovePlayerVertical();
-            }
+            MoveUp();
         }
         if (typeTap == Tap.Down)
         {
-            Debug.Log("move down");
-            if (currentLinePlayerStood < levelView.LinePositions.Length - 1)
-            {
-                currentLinePlayerStood++;
-                MovePlayerVertical();
-            }
+            MoveDown();
         }
         if (typeTap == Tap.Jump)
         {
-            playerView.phisics.AddForce(Vector2.up * playerModel.jumpForce, ForceMode2D.Impulse);
-            Debug.Log("move jump");
+            Jump();
         }
         if (typeTap == Tap.Push)
         {
-            playerView.phisics.AddForce(Vector2.right * playerModel.pushForce, ForceMode2D.Impulse);
-            playerView.animator.SetInteger("state", 1);
-            Debug.Log("push");
+            Push();
+        }
+        if (typeTap == Tap.Retry)
+        {
+            Retry();
         }
     }
 
@@ -128,6 +144,45 @@ public class PlayerController : IStarter, IUpdater
     {
         playerView.phisics.gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(currentLinePlayerStood + Const.DiffBetweenLayersAndLines));
         Utils.Change(playerView.transform.position, y: levelView.LinePositions[currentLinePlayerStood].transform.position.y);
+    }
+
+    private void MoveUp()
+    {
+        Debug.Log("move up");
+        if (currentLinePlayerStood > 0)
+        {
+            currentLinePlayerStood--;
+            MovePlayerVertical();
+        }
+    }
+
+    private void MoveDown()
+    {
+        Debug.Log("move down");
+        if (currentLinePlayerStood < levelView.LinePositions.Length - 1)
+        {
+            currentLinePlayerStood++;
+            MovePlayerVertical();
+        }
+    }
+
+    private void Jump()
+    {
+        playerView.phisics.AddForce(Vector2.up * playerModel.jumpForce, ForceMode2D.Impulse);
+        Debug.Log("jump");
+    }
+
+    private void Push()
+    {
+        playerView.phisics.AddForce(Vector2.right * playerModel.pushForce, ForceMode2D.Impulse);
+        playerView.animator.SetInteger("state", 1);
+        Debug.Log("push");
+    }
+
+    private void Retry()
+    {
+        SceneManager.LoadScene("MainScene");
+        Debug.Log("retry");
     }
 
 }
