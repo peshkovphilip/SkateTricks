@@ -17,7 +17,10 @@ public class PanelsController : IStarter
         panels = Object.FindObjectsOfType<PanelView>(true);
         foreach (PanelView panel in panels)
         {
-            panel.gameObject.SetActive(false);
+            if ((panel.PanelType == PanelType.LevelDone) || (panel.PanelType == PanelType.LevelLose))
+            {
+                panel.gameObject.SetActive(false);
+            }   
             if (panel.PanelType == PanelType.LevelDone) panelLevelDone = panel.gameObject;
             if (panel.PanelType == PanelType.LevelLose) panelLevelLose = panel.gameObject;
         }

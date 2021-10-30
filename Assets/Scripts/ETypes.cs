@@ -3,7 +3,8 @@ public enum Tap
     Up = 0,
     Down = 1,
     Jump = 2,
-    Push = 3
+    Push = 3,
+    Retry = 4
 }
 
 public enum LevelLines
@@ -33,7 +34,8 @@ public enum PanelType
 {
     LevelDone = 0,
     LevelLose = 1,
-    Quests = 2
+    Quests = 2,
+    Coins = 3
 }
 
 public enum QuestType
