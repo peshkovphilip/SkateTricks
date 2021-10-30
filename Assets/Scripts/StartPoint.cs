@@ -11,6 +11,9 @@ public class StartPoint : MonoBehaviour
         controllers.Add(new BarsController());
         controllers.Add(new PanelsController());
         controllers.Add(new ButterflyController());
+        InventoryController inventoryController = new InventoryController();
+        controllers.Add(inventoryController);
+        controllers.Add(new QuestController(inventoryController.Inventory));
         controllers.Starter();
     }
 
