@@ -11,7 +11,7 @@ public class PlayerController : IStarter, IUpdater
     private int currentLinePlayerStood;
     private Consts Const = new Consts();
     private GameParams gameParam;
-    
+    private Rigidbody2D playerRigidBody;
 
     public void Starter()
     {
@@ -19,6 +19,8 @@ public class PlayerController : IStarter, IUpdater
 
         playerView = Object.FindObjectOfType<PlayerView>(); 
         playerModel = Object.FindObjectOfType<PlayerModel>();
+        playerRigidBody = playerView.GetComponentInChildren<Rigidbody2D>();
+
         buttons = Object.FindObjectsOfType<ButtonView>(); //как это передать в конструктор без поиска и не присваивая все объекты в инспекторе?
         foreach (ButtonView button in buttons)
         {
@@ -44,6 +46,7 @@ public class PlayerController : IStarter, IUpdater
     {
         currentLinePlayerStood = (int)levelView.StartLine;
         playerView.transform.position = levelView.SpawnPoint.position;
+        playerRigidBody.gameObject.layer = currentLinePlayerStood + Const.DiffBetweenLayersAndLines;
     }
 
     public void Updater()

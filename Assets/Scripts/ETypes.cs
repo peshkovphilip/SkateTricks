@@ -17,7 +17,10 @@ public enum ItemType
 {
     Coin = 0,
     SpeedUp = 1,
-    Finish = 2
+    Finish = 2,
+    Flower = 3,
+    Pot = 4,
+    FlowersPot = 5
 }
 
 public enum BarType
@@ -29,5 +32,12 @@ public enum BarType
 public enum PanelType
 {
     LevelDone = 0,
-    LevelLose = 1
+    LevelLose = 1,
+    Quests = 2
+}
+
+public enum QuestType
+{
+    Collect = 0,
+    Lost = 1
 }
