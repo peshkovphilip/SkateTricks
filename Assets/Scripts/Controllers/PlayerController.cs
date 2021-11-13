@@ -187,6 +187,8 @@ public class PlayerController : IStarter, IUpdater
 
     private void Retry()
     {
+        Utils.GameAnalytic.SendMessage("level_retry");
+        Utils.Advertise.ShowInterstitial();
         SceneManager.LoadScene("MainScene");
         Debug.Log("retry");
     }

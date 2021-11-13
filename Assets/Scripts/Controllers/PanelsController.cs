@@ -27,6 +27,14 @@ public class PanelsController : IStarter
     private void ViewPanel(PanelType panelType)
     {
         panels.Find(x => x.PanelType == panelType).gameObject.SetActive(true);
+        if (panelType == PanelType.LevelDone)
+        {
+            Utils.GameAnalytic.SendMessage("level_done");
+        }
+        if (panelType == PanelType.LevelLose)
+        {
+            Utils.GameAnalytic.SendMessage("level_lose");
+        }
     }
 
     public List<PanelView> GetPanels()

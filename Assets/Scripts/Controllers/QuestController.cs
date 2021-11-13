@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestController : IStarter
@@ -46,6 +47,7 @@ public class QuestController : IStarter
             {
                 gameParams.Coins += quest.RewardMoney;
                 quest.QuestComplete();
+                Utils.GameAnalytic.SendMessage("quest_completed", ("id", quest.ID));
             }
         }
         UpdateWindow();

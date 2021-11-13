@@ -42,5 +42,6 @@ public class UIController : IStarter
         _panels.Find(x => x.PanelType == PanelType.LevelGame).gameObject.SetActive(true);
         _panels.Find(x => x.PanelType == PanelType.Coins).gameObject.SetActive(true);
         _panels.Find(x => x.PanelType == PanelType.Quests).gameObject.SetActive(true);
+        Utils.GameAnalytic.SendMessage("start_game");
     }
 }
