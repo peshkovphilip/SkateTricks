@@ -19,8 +19,8 @@ public class QuestController : IStarter
         gameParams = Object.FindObjectOfType<GameParams>();
         uICanvasView = Object.FindObjectOfType<UICanvasView>();
 
-        quests.Add(new QuestModel(QuestType.Lost, 3, 10, ItemType.Flower)); // download from database 
-        uICanvasView.Panels[(int)PanelType.Quests].SetActive(true);
+        quests.Add(new QuestModel(1, QuestType.Lost, 3, 10, ItemType.Flower)); // download from database 
+        //uICanvasView.Panels[(int)PanelType.Quests].SetActive(true);
 
         _inventory.AddAction += CheckAdd;
         _inventory.RemoveAction += UpdateRemove;

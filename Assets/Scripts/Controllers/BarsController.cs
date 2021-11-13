@@ -10,7 +10,7 @@ public class BarsController : IStarter
     {
         Debug.Log("start BarsController");
         gameParams = Object.FindObjectOfType<GameParams>();
-        barCoinsView = Object.FindObjectOfType<BarCoinsView>();
+        barCoinsView = Object.FindObjectOfType<BarCoinsView>(true);
         gameParams.BarsUpdate += BarsUpdate;
     }
 

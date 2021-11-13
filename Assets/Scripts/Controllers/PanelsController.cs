@@ -1,42 +1,36 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PanelsController : IStarter
 {
-    private PanelView[] panels;
+    private List<PanelView> panels = new List<PanelView>();
     private PlayerModel playerModel;
     private GameParams gameParam;
-    private GameObject panelLevelDone;
-    private GameObject panelLevelLose;
-    
+
     public void Starter()
     {
         Debug.Log("start PanelsController");
 
         gameParam = Object.FindObjectOfType<GameParams>();
-        playerModel = Object.FindObjectOfType<PlayerModel>();
-        panels = Object.FindObjectsOfType<PanelView>(true);
+        playerModel = Object.FindObjectOfType<PlayerModel>(true);
+        panels = Object.FindObjectsOfType<PanelView>(true).ToList();
+
         foreach (PanelView panel in panels)
         {
-            if ((panel.PanelType == PanelType.LevelDone) || (panel.PanelType == PanelType.LevelLose))
-            {
-                panel.gameObject.SetActive(false);
-            }   
-            if (panel.PanelType == PanelType.LevelDone) panelLevelDone = panel.gameObject;
-            if (panel.PanelType == PanelType.LevelLose) panelLevelLose = panel.gameObject;
+            panel.gameObject.SetActive(panel.Active);
+            gameParam.PanelView += ViewPanel;
+            playerModel.PanelView += ViewPanel;
         }
-        gameParam.PanelView += ViewPanel;
-        playerModel.PanelView += ViewPanel;
     }
 
     private void ViewPanel(PanelType panelType)
     {
-        if (panelType == PanelType.LevelDone)
-        {
-            panelLevelDone.SetActive(true);
-        }
-        if (panelType == PanelType.LevelLose)
-        {
-            panelLevelLose.SetActive(true);
-        }
+        panels.Find(x => x.PanelType == panelType).gameObject.SetActive(true);
+    }
+
+    public List<PanelView> GetPanels()
+    {
+        return panels;
     }
 }
