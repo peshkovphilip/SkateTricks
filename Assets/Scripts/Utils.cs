@@ -11,4 +11,8 @@ public static class Utils
     {
         return new Vector2(x == null ? org.x : (float)x, y == null ? org.y : (float)y);
     }
+    
+    public static GameAnalytics GameAnalytic = new GameAnalytics();
+    public static AdsController Advertise = new AdsController();
+    
 }

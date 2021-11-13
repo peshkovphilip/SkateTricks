@@ -17,6 +17,7 @@ public class StartPoint : MonoBehaviour
         InventoryController inventoryController = new InventoryController();
         controllers.Add(inventoryController);
         controllers.Add(new QuestController(inventoryController.Inventory));
+        controllers.Add(new AdsController());
         controllers.Starter();
     }
 
