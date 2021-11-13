@@ -7,6 +7,11 @@ public enum Tap
     Retry = 4
 }
 
+public enum TapUI
+{
+    StartGame = 0
+}
+
 public enum LevelLines
 {
     Far = 0,
@@ -35,7 +40,9 @@ public enum PanelType
     LevelDone = 0,
     LevelLose = 1,
     Quests = 2,
-    Coins = 3
+    Coins = 3,
+    Menu = 4,
+    LevelGame = 5
 }
 
 public enum QuestType

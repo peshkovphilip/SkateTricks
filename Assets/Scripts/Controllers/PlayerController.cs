@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class PlayerController : IStarter, IUpdater
 {
@@ -19,8 +20,8 @@ public class PlayerController : IStarter, IUpdater
     {
         Debug.Log("start PlayerController");
 
-        playerView = Object.FindObjectOfType<PlayerView>(); 
-        playerModel = Object.FindObjectOfType<PlayerModel>();
+        playerView = Object.FindObjectOfType<PlayerView>(true); 
+        playerModel = Object.FindObjectOfType<PlayerModel>(true);
         playerRigidBody = playerView.GetComponentInChildren<Rigidbody2D>();
 
         buttons = Object.FindObjectsOfType<ButtonView>(true); //как это передать в конструктор без поиска и не присваивая все объекты в инспекторе?
@@ -38,7 +39,7 @@ public class PlayerController : IStarter, IUpdater
         {
             environment.OnEnter += EnvironmentCollision;
         }
-        levelView = Object.FindObjectOfType<LevelView>();
+        levelView = Object.FindObjectOfType<LevelView>(true);
         gameParam = Object.FindObjectOfType<GameParams>();
 
         SetDefaultValues();
@@ -50,6 +51,8 @@ public class PlayerController : IStarter, IUpdater
         playerView.transform.position = levelView.SpawnPoint.position;
         playerRigidBody.gameObject.layer = currentLinePlayerStood + Const.DiffBetweenLayersAndLines;
     }
+    
+    
 
     public void Updater()
     {
@@ -60,27 +63,30 @@ public class PlayerController : IStarter, IUpdater
                 playerView.animator.SetInteger("state", 0);
             }
         }
-        
-        
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+
+        var keyboard = Keyboard.current;
+        if (keyboard != null)
         {
-            MoveUp();
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-        {
-            MoveDown();
-        }
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.O))
-        {
-            Jump();
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.L))
-        {
-            Push();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Retry();
+            if ((keyboard.upArrowKey.wasPressedThisFrame) || (keyboard.wKey.wasPressedThisFrame))
+            {
+                MoveUp();
+            }
+            if ((keyboard.downArrowKey.wasPressedThisFrame) || (keyboard.sKey.wasPressedThisFrame))
+            {
+                MoveDown();
+            }
+            if ((keyboard.spaceKey.wasPressedThisFrame) || (keyboard.oKey.wasPressedThisFrame))
+            {
+                Jump();
+            }
+            if ((keyboard.rightArrowKey.wasPressedThisFrame) || (keyboard.leftCtrlKey.wasPressedThisFrame) || (keyboard.lKey.wasPressedThisFrame))
+            {
+                Push();
+            }
+            if ((keyboard.rKey.wasPressedThisFrame))
+            {
+                Retry();
+            }
         }
     }
 

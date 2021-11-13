@@ -9,7 +9,10 @@ public class StartPoint : MonoBehaviour
         controllers = new Controllers();
         controllers.Add(new PlayerController());
         controllers.Add(new BarsController());
-        controllers.Add(new PanelsController());
+        PanelsController panelController = new PanelsController();
+        controllers.Add(panelController);
+        panelController.Starter(); //как передать панели в UIController ?
+        controllers.Add(new UIController(panelController.GetPanels()));
         controllers.Add(new ButterflyController());
         InventoryController inventoryController = new InventoryController();
         controllers.Add(inventoryController);

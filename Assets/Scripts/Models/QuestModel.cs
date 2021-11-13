@@ -7,6 +7,7 @@ public class QuestModel
     private ItemType _itemType;
     private QuestType _questType;
     private bool _isComplete;
+    private int _id;
 
     public int NeedCount => _needcount;
     public int CurrentCount
@@ -21,11 +22,13 @@ public class QuestModel
     public ItemType ItemType => _itemType;
     public QuestType QuestType => _questType;
     public bool IsComplete => _isComplete;
+    public int ID => _id;
         
     public event Action<QuestModel> Completed;
 
-    public QuestModel(QuestType questType, int needCount, int rewardMoney, ItemType itemType)
+    public QuestModel(int id, QuestType questType, int needCount, int rewardMoney, ItemType itemType)
     {
+        _id = id;
         _questType = questType;
         _needcount = needCount;
         _currentCount = 0;
