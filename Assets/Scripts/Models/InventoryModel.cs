@@ -1,22 +1,24 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 public class InventoryModel 
 {
-    private int maxSlots = 3;
+    private int _maxSlots = 4;
     private List<ItemModel> items = new List<ItemModel>();
 
     public event Action<ItemModel> RemoveAction;
     public event Action<ItemModel> AddAction;
-    public int MaxSlots => maxSlots;
+    public int MaxSlots => _maxSlots;
     public List<ItemModel> Items => items;
+
 
     public void AddItem(ItemModel item)
     {
         items.Add(item);
         AddAction?.Invoke(item);
     }
-    public bool RemoveItem(ItemType itemType)
+    public bool RemoveItem(EItemType itemType)
     {
         if (items.FindAll(x => x.ItemType == itemType).Count > 0)
         {
@@ -42,6 +44,18 @@ public class InventoryModel
         else
         {
             return false;
+        }
+    }
+
+    public void PickUpItem(ItemModel itemModel)
+    {
+        if (items.FindAll(x => x.ItemType == itemModel.ItemType).Count == 0)
+        {
+            AddItem(itemModel);
+        }
+        else
+        {
+            items.Find(x => x.ItemType == itemModel.ItemType).Count += itemModel.Count;
         }
     }
 }

@@ -16,12 +16,14 @@ public class PlayerController : IStarter, IUpdater
     private GameParams gameParam;
     private Rigidbody2D playerRigidBody;
 
+    public PlayerController(PlayerView playerView, PlayerModel playerModel)
+    {
+        this.playerView = playerView;
+        this.playerModel = playerModel;
+    }
     public void Starter()
     {
         Debug.Log("start PlayerController");
-
-        playerView = Object.FindObjectOfType<PlayerView>(true); 
-        playerModel = Object.FindObjectOfType<PlayerModel>(true);
         playerRigidBody = playerView.GetComponentInChildren<Rigidbody2D>();
 
         buttons = Object.FindObjectsOfType<ButtonView>(true); //как это передать в конструктор без поиска и не присваивая все объекты в инспекторе?
@@ -120,12 +122,12 @@ public class PlayerController : IStarter, IUpdater
         if (collider == playerView.collider)
         {
             Debug.Log("get item");
-            if (itemView.ItemType == ItemType.Coin)
+            if (itemView.ItemType == EItemType.Coin)
             {
                 Debug.Log("get coin");
-                gameParam.Coins += itemView.Coins;
+                gameParam.Coins ++;
             }
-            if (itemView.ItemType == ItemType.Finish)
+            if (itemView.ItemType == EItemType.Finish)
             {
                 Debug.Log("get finish");
                 gameParam.LevelDone = true;
@@ -154,7 +156,6 @@ public class PlayerController : IStarter, IUpdater
 
     private void MoveUp()
     {
-        Debug.Log("move up");
         if (currentLinePlayerStood > 0)
         {
             currentLinePlayerStood--;
@@ -164,7 +165,6 @@ public class PlayerController : IStarter, IUpdater
 
     private void MoveDown()
     {
-        Debug.Log("move down");
         if (currentLinePlayerStood < levelView.LinePositions.Length - 1)
         {
             currentLinePlayerStood++;
@@ -174,20 +174,18 @@ public class PlayerController : IStarter, IUpdater
 
     private void Jump()
     {
-        playerView.phisics.AddForce(Vector2.up * playerModel.jumpForce, ForceMode2D.Impulse);
-        Debug.Log("jump");
+        playerView.phisics.AddForce(Vector2.up * playerModel.JumpForce, ForceMode2D.Impulse);
     }
 
     private void Push()
     {
-        playerView.phisics.AddForce(Vector2.right * playerModel.pushForce, ForceMode2D.Impulse);
+        playerView.phisics.AddForce(Vector2.right * playerModel.PushForce, ForceMode2D.Impulse);
         playerView.animator.SetInteger("state", 1);
-        Debug.Log("push");
     }
 
     private void Retry()
     {
-        Utils.GameAnalytic.SendMessage("level_retry");
+        GameAnalytics.SendMessage("level_retry");
         Utils.Advertise.ShowInterstitial();
         SceneManager.LoadScene("MainScene");
         Debug.Log("retry");

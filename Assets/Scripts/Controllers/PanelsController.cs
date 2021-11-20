@@ -7,7 +7,13 @@ public class PanelsController : IStarter
     private List<PanelView> panels = new List<PanelView>();
     private PlayerModel playerModel;
     private GameParams gameParam;
+    private UICanvasView uiCanvasView;
 
+    public PanelsController(UICanvasView uiCanvasView)
+    {
+        this.uiCanvasView = uiCanvasView;
+    }
+    
     public void Starter()
     {
         Debug.Log("start PanelsController");
@@ -29,11 +35,16 @@ public class PanelsController : IStarter
         panels.Find(x => x.PanelType == panelType).gameObject.SetActive(true);
         if (panelType == PanelType.LevelDone)
         {
-            Utils.GameAnalytic.SendMessage("level_done");
+            GameAnalytics.SendMessage("level_done");
         }
         if (panelType == PanelType.LevelLose)
         {
-            Utils.GameAnalytic.SendMessage("level_lose");
+            GameAnalytics.SendMessage("level_lose");
+        }
+
+        if ((panelType == PanelType.LevelDone) || (panelType == PanelType.LevelLose))
+        {
+            uiCanvasView.Panels[(int)PanelType.Inventory].gameObject.SetActive(false);
         }
     }
 

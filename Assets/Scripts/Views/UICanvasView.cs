@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UICanvasView : MonoBehaviour
 {
-    [SerializeField] private GameObject[] panels;
+    [SerializeField] private PanelView[] panels;
 
-    public GameObject[] Panels => panels;
+    public PanelView[] Panels => panels;
 }
