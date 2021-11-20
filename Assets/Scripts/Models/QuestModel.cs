@@ -4,7 +4,8 @@ public class QuestModel
     private int _needcount;
     private int _currentCount;
     private int _rewardMoney;
-    private ItemType _itemType;
+    private EItemType _itemType;
+    private EItemType _rewardType;
     private QuestType _questType;
     private bool _isComplete;
     private int _id;
@@ -19,14 +20,15 @@ public class QuestModel
         }
     }
     public int RewardMoney => _rewardMoney;
-    public ItemType ItemType => _itemType;
+    public EItemType ItemType => _itemType;
+    public EItemType RewardType => _rewardType;
     public QuestType QuestType => _questType;
     public bool IsComplete => _isComplete;
     public int ID => _id;
         
     public event Action<QuestModel> Completed;
 
-    public QuestModel(int id, QuestType questType, int needCount, int rewardMoney, ItemType itemType)
+    public QuestModel(int id, QuestType questType, int needCount, int rewardMoney, EItemType rewardType, EItemType itemType)
     {
         _id = id;
         _questType = questType;
@@ -34,6 +36,7 @@ public class QuestModel
         _currentCount = 0;
         _rewardMoney = rewardMoney;
         _itemType = itemType;
+        _rewardType = rewardType;
         _isComplete = false;
     }
 

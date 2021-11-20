@@ -19,14 +19,15 @@ public enum LevelLines
     Near = 2
 }
 
-public enum ItemType
+public enum EItemType
 {
     Coin = 0,
     SpeedUp = 1,
     Finish = 2,
     Flower = 3,
     Pot = 4,
-    FlowersPot = 5
+    FlowersPot = 5,
+    JetPack = 6
 }
 
 public enum BarType
@@ -42,11 +43,28 @@ public enum PanelType
     Quests = 2,
     Coins = 3,
     Menu = 4,
-    LevelGame = 5
+    LevelGame = 5,
+    Inventory = 6
 }
 
 public enum QuestType
 {
     Collect = 0,
     Lost = 1
+}
+
+public enum EAbilityType
+{
+    Life = 0,
+    Jump = 1,
+    Push = 2
+}
+
+public enum EAbilityActionType
+{
+    Equals = 0,
+    Plus = 1,
+    Minus = 2,
+    Multi = 3,
+    Clear = 4
 }

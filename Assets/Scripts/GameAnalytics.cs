@@ -1,14 +1,14 @@
 using UnityEngine.Analytics;
 using System.Collections.Generic;
 
-public class GameAnalytics : IAnalytics
+public static class GameAnalytics
 {
-    public void SendMessage(string nameEvent)
+    public static void SendMessage(string nameEvent)
     {
         Analytics.CustomEvent(nameEvent);
     }
 
-    public void SendMessage(string nameEvent, (string, object) data)
+    public static void SendMessage(string nameEvent, (string, object) data)
     {
         var eventData = new Dictionary<string, object> { [data.Item1] = data.Item2 };
         Analytics.CustomEvent(nameEvent, eventData);

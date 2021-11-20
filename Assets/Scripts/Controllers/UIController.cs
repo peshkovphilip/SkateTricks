@@ -40,8 +40,8 @@ public class UIController : IStarter
         Debug.Log(_panels.Count);
         _panels.Find(x => x.PanelType == PanelType.Menu).gameObject.SetActive(false);
         _panels.Find(x => x.PanelType == PanelType.LevelGame).gameObject.SetActive(true);
-        _panels.Find(x => x.PanelType == PanelType.Coins).gameObject.SetActive(true);
         _panels.Find(x => x.PanelType == PanelType.Quests).gameObject.SetActive(true);
-        Utils.GameAnalytic.SendMessage("start_game");
+        _panels.Find(x => x.PanelType == PanelType.Inventory).gameObject.SetActive(true);
+        GameAnalytics.SendMessage("start_game");
     }
 }

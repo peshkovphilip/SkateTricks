@@ -51,7 +51,6 @@
      <Compile Include="Assets\Scripts\Models\QuestModel.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IStarter.cs" />
      <Compile Include="Assets\Scripts\Controllers\ButterflyController.cs" />
-     <Compile Include="Assets\Scripts\Interfaces\IAnalytics.cs" />
      <Compile Include="Assets\Scripts\Views\BarCoinsView.cs" />
      <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
      <Compile Include="Assets\Scripts\Consts.cs" />
@@ -79,6 +78,10 @@
      <Compile Include="Assets\Scripts\Controllers\Controllers.cs" />
      <Compile Include="Assets\Scripts\Views\ButtonUIView.cs" />
      <Compile Include="Assets\Scripts\Controllers\BarsController.cs" />
+     <Compile Include="Assets\Scripts\Views\InventoryView.cs" />
+     <Compile Include="Assets\Scripts\Views\InventoryItemView.cs" />
+     <Compile Include="Assets\Scripts\Models\AbilityModel.cs" />
+     <Compile Include="Assets\Scripts\Controllers\AbilityController.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

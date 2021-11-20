@@ -20,7 +20,7 @@ public class QuestController : IStarter
         gameParams = Object.FindObjectOfType<GameParams>();
         uICanvasView = Object.FindObjectOfType<UICanvasView>();
 
-        quests.Add(new QuestModel(1, QuestType.Lost, 3, 10, ItemType.Flower)); // download from database 
+        quests.Add(new QuestModel(1, QuestType.Lost, 3, 10, EItemType.Coin, EItemType.Flower)); // download from database 
         //uICanvasView.Panels[(int)PanelType.Quests].SetActive(true);
 
         _inventory.AddAction += CheckAdd;
@@ -35,10 +35,10 @@ public class QuestController : IStarter
     private void UpdateRemove(ItemModel item)
     {
         quests.FindAll(x => x.QuestType == QuestType.Lost && x.ItemType == item.ItemType).ForEach(x => x.CurrentCount++);
-        AcceptQuest();
+        AcceptQuest(item);
     }
 
-    private void AcceptQuest()
+    private void AcceptQuest(ItemModel item = null)
     {
         List<QuestModel> sortedQuests = quests.FindAll(x => x.IsComplete == false && x.CurrentCount == x.NeedCount);
         if (sortedQuests.Count > 0)
@@ -46,8 +46,11 @@ public class QuestController : IStarter
             foreach (QuestModel quest in sortedQuests)
             {
                 gameParams.Coins += quest.RewardMoney;
+                item.Count = quest.RewardMoney;
+                item.ItemType = quest.RewardType;
+                _inventory.PickUpItem(item);
                 quest.QuestComplete();
-                Utils.GameAnalytic.SendMessage("quest_completed", ("id", quest.ID));
+                GameAnalytics.SendMessage("quest_completed", ("id", quest.ID));
             }
         }
         UpdateWindow();
@@ -58,7 +61,7 @@ public class QuestController : IStarter
         List<QuestModel> sortedQuests = quests.FindAll(x => x.IsComplete == false);
         if (sortedQuests.Count > 0)
         {
-            uICanvasView.Panels[(int)PanelType.Quests].SetActive(false);
+            uICanvasView.Panels[(int)PanelType.Quests].gameObject.SetActive(false);
         }
     }
 

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
-public class PlayerModel : MonoBehaviour // подскажите как выставлять параметры в инспекторе для модели, но не использовать моно для модели
+public class PlayerModel : MonoBehaviour
 {
     [SerializeField] private int health = 100;
-    public int lifes = 3;
-    public float pushForce = 5f;
-    public float jumpForce = 4f;
+    [SerializeField] private int lifes = 3;
+    [SerializeField] private float pushForce = 5f;
+    [SerializeField] private float jumpForce = 4f;
+    //private 
     public event System.Action<PanelType> PanelView;
 
     public int Health
@@ -23,5 +24,23 @@ public class PlayerModel : MonoBehaviour // подскажите как выст
                 PanelView?.Invoke(PanelType.LevelLose);
             }
         }
+    }
+
+    public int Lifes
+    {
+        get => lifes; 
+        set => lifes = value;
+    }
+
+    public float PushForce
+    {
+        get => pushForce; 
+        set => pushForce = value;
+    }
+
+    public float JumpForce
+    {
+        get => jumpForce;
+        set => jumpForce = value;
     }
 }

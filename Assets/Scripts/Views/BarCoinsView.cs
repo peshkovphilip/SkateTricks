@@ -7,9 +7,6 @@ public class BarCoinsView : MonoBehaviour
 
     public int ValueCoins
     {
-        set
-        {
-            valueCoins.text = value.ToString();
-        }
+        set => valueCoins.text = value.ToString();
     }
 }

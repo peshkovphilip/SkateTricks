@@ -1,8 +1,11 @@
 
+using UnityEngine;
+
 public class ItemModel
 {
     private int _count = 1;
-    private ItemType _type = ItemType.Flower;
+    private EItemType _type;
+    private Sprite _image;
 
     public int Count
     {
@@ -12,11 +15,19 @@ public class ItemModel
             _count = value;
         }
     }
-    public ItemType ItemType => _type;
 
-    public ItemModel(int count, ItemType type)
+    public EItemType ItemType
+    {
+        get => _type;
+        set { _type = value; }
+    }
+
+    public Sprite Image => _image;
+
+    public ItemModel(int count, EItemType type, Sprite image)
     {
         _count = count;
         _type = type;
+        _image = image;
     }
 }
