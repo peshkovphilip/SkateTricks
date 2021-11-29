@@ -114,5 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 2
-  coins: 0
   isDestroyable: 0
+  isPickable: 0
+  isWearable: 0
+  itemImage: {fileID: 0}
+  itemSprite: {fileID: 5474639781155485672}

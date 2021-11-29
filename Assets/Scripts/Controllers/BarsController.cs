@@ -4,21 +4,24 @@ using UnityEngine;
 public class BarsController : IStarter
 {
     private BarCoinsView barCoinsView;
-    private GameParams gameParams;
+    //private GameParams _gameParams;
 
+    // public BarsController(GameParams gameParams)
+    // {
+    //     _gameParams = gameParams;
+    // }
     public void Starter()
     {
         Debug.Log("start BarsController");
-        gameParams = Object.FindObjectOfType<GameParams>();
         barCoinsView = Object.FindObjectOfType<BarCoinsView>(true);
-        gameParams.BarsUpdate += BarsUpdate;
+        //_gameParams.BarsUpdate += BarsUpdate;
     }
 
-    private void BarsUpdate(BarType barType)
-    {
-        if (barType == BarType.Coin)
-        {
-            barCoinsView.ValueCoins = gameParams.Coins;
-        }
-    }
+    // private void BarsUpdate(BarType barType)
+    // {
+    //     if (barType == BarType.Coin)
+    //     {
+    //         barCoinsView.ValueCoins = _gameParams.Coins;
+    //     }
+    // }
 }

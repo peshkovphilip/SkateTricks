@@ -1,68 +1,90 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
 using UnityEngine.InputSystem;
 
 public class PlayerController : IStarter, IUpdater
 {
-    private PlayerView playerView;
-    private PlayerModel playerModel;
+    private PlayerView _playerView;
+    private PlayerModel _playerModel;
     private ButtonView[] buttons;
-    private ItemView[] items;
-    private EnvironmentView[] environments;
+    private ItemView[] _itemViews;
+    private EnvironmentView[] _environments;
     private LevelView levelView;
     private int currentLinePlayerStood;
     private Consts Const = new Consts();
-    private GameParams gameParam;
     private Rigidbody2D playerRigidBody;
+    private PlayerData _playerData;
+    private PlayerBodyView _playerBodyView;
+    private Vector3 startBodyPosition;
 
-    public PlayerController(PlayerView playerView, PlayerModel playerModel)
+    public PlayerController(PlayerView playerView, PlayerModel playerModel, ItemView[] itemViews, PlayerData playerData, EnvironmentView[] environments)
     {
-        this.playerView = playerView;
-        this.playerModel = playerModel;
+        _playerView = playerView;
+        _playerModel = playerModel;
+        _itemViews = itemViews;
+        _playerData = playerData;
+        _environments = environments;
     }
     public void Starter()
     {
         Debug.Log("start PlayerController");
-        playerRigidBody = playerView.GetComponentInChildren<Rigidbody2D>();
+        playerRigidBody = _playerView.GetComponentInChildren<Rigidbody2D>();
+        _playerBodyView = _playerView.GetComponentInChildren<PlayerBodyView>();
+        startBodyPosition = new Vector3(2, 0.5f, 0);
 
-        buttons = Object.FindObjectsOfType<ButtonView>(true); //как это передать в конструктор без поиска и не присваивая все объекты в инспекторе?
+        buttons = Object.FindObjectsOfType<ButtonView>(true); 
         foreach (ButtonView button in buttons)
         {
             button.OnTap += TryAction;
         }
-        items = Object.FindObjectsOfType<ItemView>(true);
-        foreach (ItemView item in items)
+        foreach (ItemView item in _itemViews)
         {
             item.OnEnter += GetItem;
         }
-        environments = Object.FindObjectsOfType<EnvironmentView>(true);
-        foreach (EnvironmentView environment in environments)
+        foreach (EnvironmentView environment in _environments)
         {
             environment.OnEnter += EnvironmentCollision;
         }
         levelView = Object.FindObjectOfType<LevelView>(true);
-        gameParam = Object.FindObjectOfType<GameParams>();
+        
 
-        SetDefaultValues();
+        SetDefaultValues(false);
     }
 
-    public void SetDefaultValues()
+    public void SetDefaultValues(bool loadGame = true)
     {
+        Debug.Log("setDefault="+loadGame);
+        _playerBodyView.JetPackSprite.sprite = null;
+        _playerView.animator.SetInteger("state", 0);
+        Camera.main.GetComponent<FixedJoint2D>().enabled = false;
+        playerRigidBody.isKinematic = true;
+        _playerView.phisics.velocity = Vector2.zero;
+        Camera.main.transform.position = _playerView.cameraPosition.position;
+        _playerView.transform.position = levelView.SpawnPoint.position;
+        _playerBodyView.transform.position = startBodyPosition;
+        Camera.main.GetComponent<FixedJoint2D>().enabled = true;
+        playerRigidBody.isKinematic = false;
         currentLinePlayerStood = (int)levelView.StartLine;
-        playerView.transform.position = levelView.SpawnPoint.position;
         playerRigidBody.gameObject.layer = currentLinePlayerStood + Const.DiffBetweenLayersAndLines;
+        
+        //Camera.main.GetComponent<FixedJoint2D>().enabled = true;
+        //playerRigidBody.isKinematic = false;
+        if (loadGame)
+        {
+            _playerData = Game.LoadGame();
+            
+        }
+            
     }
     
     
 
     public void Updater()
     {
-        if (playerView.phisics.velocity.magnitude <= Const.MinPlayerMagnitudeForIdle)
+        if (_playerView.phisics.velocity.magnitude <= Const.MinPlayerMagnitudeForIdle)
         {
-            if (playerView.animator.GetInteger("state") != 0)
+            if (_playerView.animator.GetInteger("state") != 0)
             {
-                playerView.animator.SetInteger("state", 0);
+                _playerView.animator.SetInteger("state", 0);
             }
         }
 
@@ -84,10 +106,6 @@ public class PlayerController : IStarter, IUpdater
             if ((keyboard.rightArrowKey.wasPressedThisFrame) || (keyboard.leftCtrlKey.wasPressedThisFrame) || (keyboard.lKey.wasPressedThisFrame))
             {
                 Push();
-            }
-            if ((keyboard.rKey.wasPressedThisFrame))
-            {
-                Retry();
             }
         }
     }
@@ -111,26 +129,22 @@ public class PlayerController : IStarter, IUpdater
         {
             Push();
         }
-        if (typeTap == Tap.Retry)
-        {
-            Retry();
-        }
     }
 
     public void GetItem(ItemView itemView, Collider2D collider)
     {
-        if (collider == playerView.collider)
+        if (collider == _playerView.collider)
         {
             Debug.Log("get item");
-            if (itemView.ItemType == EItemType.Coin)
-            {
-                Debug.Log("get coin");
-                gameParam.Coins ++;
-            }
+            // if (itemView.ItemType == EItemType.Coin)
+            // {
+            //     Debug.Log("get coin");
+            //     gameParams.Coins ++;
+            // }
             if (itemView.ItemType == EItemType.Finish)
             {
                 Debug.Log("get finish");
-                gameParam.LevelDone = true;
+                //gameParams.LevelDone = true;
                 SetDefaultValues();
             }
         }
@@ -138,20 +152,20 @@ public class PlayerController : IStarter, IUpdater
 
     public void EnvironmentCollision(EnvironmentView environmentView, Collider2D collider)
     {
-        if (collider == playerView.collider)
+        if (collider == _playerView.collider)
         {
             Debug.Log("collision with environment");
             if (environmentView.Damage > 0)
             {
-                playerModel.Health -= environmentView.Damage;
+                _playerModel.Health -= environmentView.Damage;
             }
         }
     }
 
     private void MovePlayerVertical()
     {
-        playerView.phisics.gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(currentLinePlayerStood + Const.DiffBetweenLayersAndLines));
-        Utils.Change(playerView.transform.position, y: levelView.LinePositions[currentLinePlayerStood].transform.position.y);
+        _playerView.phisics.gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(currentLinePlayerStood + Const.DiffBetweenLayersAndLines));
+        Utils.Change(_playerView.transform.position, y: levelView.LinePositions[currentLinePlayerStood].transform.position.y);
     }
 
     private void MoveUp()
@@ -174,21 +188,15 @@ public class PlayerController : IStarter, IUpdater
 
     private void Jump()
     {
-        playerView.phisics.AddForce(Vector2.up * playerModel.JumpForce, ForceMode2D.Impulse);
+        _playerView.phisics.AddForce(Vector2.up * _playerModel.JumpForce, ForceMode2D.Impulse);
     }
 
     private void Push()
     {
-        playerView.phisics.AddForce(Vector2.right * playerModel.PushForce, ForceMode2D.Impulse);
-        playerView.animator.SetInteger("state", 1);
+        _playerView.phisics.AddForce(Vector2.right * _playerModel.PushForce, ForceMode2D.Impulse);
+        _playerView.animator.SetInteger("state", 1);
     }
 
-    private void Retry()
-    {
-        GameAnalytics.SendMessage("level_retry");
-        Utils.Advertise.ShowInterstitial();
-        SceneManager.LoadScene("MainScene");
-        Debug.Log("retry");
-    }
+    
 
 }

@@ -1,23 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIController : IStarter
 {
-    private List<PanelView> _panels;
-    private ButtonUIView[] buttons;
+    private ButtonsUIModel _buttonsUIModel;
+    public event Action<PanelType> PanelView;
     
-    public UIController(List<PanelView> panels)
+    public UIController(ButtonsUIModel buttonsUIModel)
     {
-        _panels = panels;
+        _buttonsUIModel = buttonsUIModel;
     }
     
     public void Starter()
     {
         Debug.Log("start UIController");
-        
-        buttons = Object.FindObjectsOfType<ButtonUIView>(true); //как это передать в конструктор без поиска и не присваивая все объекты в инспекторе?
-        foreach (ButtonUIView button in buttons)
+        foreach (ButtonUIView button in _buttonsUIModel.Buttons)
         {
             button.OnTap += TryAction;
         }
@@ -30,18 +28,33 @@ public class UIController : IStarter
             case TapUI.StartGame:
                 StartGame();
                 break;
-            default:
-                break;               
+            case TapUI.RetryGame:
+                RetryGame();
+                break;
+            case TapUI.NextLevel:
+                NextLevel();
+                break;            
         }
     }
 
     private void StartGame()
     {
-        Debug.Log(_panels.Count);
-        _panels.Find(x => x.PanelType == PanelType.Menu).gameObject.SetActive(false);
-        _panels.Find(x => x.PanelType == PanelType.LevelGame).gameObject.SetActive(true);
-        _panels.Find(x => x.PanelType == PanelType.Quests).gameObject.SetActive(true);
-        _panels.Find(x => x.PanelType == PanelType.Inventory).gameObject.SetActive(true);
+        PanelView?.Invoke(PanelType.LevelGame);
         GameAnalytics.SendMessage("start_game");
+    }
+    
+    private void RetryGame()
+    {
+        GameAnalytics.SendMessage("level_retry");
+        Utils.Advertise.ShowInterstitial();
+        Game.RestartGame = true;
+        SceneManager.LoadScene("MainScene");
+        Debug.Log("retry");
+    }
+    
+    private void NextLevel()
+    {
+        SceneManager.LoadScene("MainScene");
+        GameAnalytics.SendMessage("next_level");
     }
 }

@@ -10,7 +10,7 @@ public class AbilityModel
     private float _abilityValue;
     private float _abilityDuration;
     private float _abilityDurationPast = 0f;
-    private bool _active = false;
+    private bool _active;
 
     public EAbilityType AbilityType => _abilityType;
     public EAbilityActionType AbilityActionType => _abilityActionType;

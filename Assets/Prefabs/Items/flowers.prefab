@@ -102,6 +102,7 @@ MonoBehaviour:
   isPickable: 1
   isWearable: 0
   itemImage: {fileID: 21300000, guid: 1779eec52fcda11478ffa710bd92abc9, type: 3}
+  itemSprite: {fileID: 7119110292834936987}
 --- !u!58 &2017370635168709701
 CircleCollider2D:
   m_ObjectHideFlags: 0

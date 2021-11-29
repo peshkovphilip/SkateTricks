@@ -1,28 +1,32 @@
 using System.Collections.Generic;
 using System;
-using UnityEngine;
 
-public class InventoryModel 
+
+public class InventoryModel
 {
-    private int _maxSlots = 4;
-    private List<ItemModel> items = new List<ItemModel>();
 
+    private InventoryModelOnly inventory;
     public event Action<ItemModel> RemoveAction;
     public event Action<ItemModel> AddAction;
-    public int MaxSlots => _maxSlots;
-    public List<ItemModel> Items => items;
+    public event Action<ItemModel> PickUpAction;
 
+
+    public InventoryModelOnly Inventory
+    {
+        get => inventory;
+        set => inventory = value;
+    }
 
     public void AddItem(ItemModel item)
     {
-        items.Add(item);
+        inventory.Items.Add(item);
         AddAction?.Invoke(item);
     }
     public bool RemoveItem(EItemType itemType)
     {
-        if (items.FindAll(x => x.ItemType == itemType).Count > 0)
+        if (inventory.Items.FindAll(x => x.ItemType == itemType).Count > 0)
         {
-            ItemModel item = items.Find(x => x.ItemType == itemType);
+            ItemModel item = inventory.Items.Find(x => x.ItemType == itemType);
             if (item.Count > 0)
             {
                 if (item.Count > 1)
@@ -31,7 +35,7 @@ public class InventoryModel
                 }
                 else
                 {
-                    items.Remove(item);
+                    inventory.Items.Remove(item);
                 }
                 RemoveAction?.Invoke(item);
                 return true;
@@ -49,13 +53,14 @@ public class InventoryModel
 
     public void PickUpItem(ItemModel itemModel)
     {
-        if (items.FindAll(x => x.ItemType == itemModel.ItemType).Count == 0)
+        if (inventory.Items.FindAll(x => x.ItemType == itemModel.ItemType).Count == 0)
         {
             AddItem(itemModel);
         }
         else
         {
-            items.Find(x => x.ItemType == itemModel.ItemType).Count += itemModel.Count;
+            inventory.Items.Find(x => x.ItemType == itemModel.ItemType).Count += itemModel.Count;
         }
+        PickUpAction?.Invoke(itemModel);
     }
 }
