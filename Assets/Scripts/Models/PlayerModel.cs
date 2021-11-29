@@ -8,6 +8,7 @@ public class PlayerModel : MonoBehaviour
     [SerializeField] private float jumpForce = 4f;
     //private 
     public event System.Action<PanelType> PanelView;
+    public event System.Action<int> SetHealth;
 
     public int Health
     {
@@ -17,6 +18,7 @@ public class PlayerModel : MonoBehaviour
             if (value > 0)
             {
                 health = value;
+                SetHealth?.Invoke(health);
             }
             else
             {

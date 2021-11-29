@@ -7,6 +7,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] public CapsuleCollider2D collider;
     [SerializeField] public Animator animator;
     [SerializeField] private PlayerBodyView body;
+    [SerializeField] public Transform cameraPosition;
 
     public PlayerBodyView Body => body;
 }

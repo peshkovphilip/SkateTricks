@@ -1,12 +1,13 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class QuestController : IStarter
 {
     private InventoryModel _inventory;
     private List<QuestModel> quests = new List<QuestModel>();
-    private GameParams gameParams;
     private UICanvasView uICanvasView;
 
     public QuestController(InventoryModel inventory)
@@ -17,7 +18,6 @@ public class QuestController : IStarter
     public void Starter()
     {
         Debug.Log("start QuestController");
-        gameParams = Object.FindObjectOfType<GameParams>();
         uICanvasView = Object.FindObjectOfType<UICanvasView>();
 
         quests.Add(new QuestModel(1, QuestType.Lost, 3, 10, EItemType.Coin, EItemType.Flower)); // download from database 
@@ -45,7 +45,7 @@ public class QuestController : IStarter
         {
             foreach (QuestModel quest in sortedQuests)
             {
-                gameParams.Coins += quest.RewardMoney;
+                //gameParams.Coins += quest.RewardMoney;
                 item.Count = quest.RewardMoney;
                 item.ItemType = quest.RewardType;
                 _inventory.PickUpItem(item);

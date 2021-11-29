@@ -9,7 +9,10 @@ public enum Tap
 
 public enum TapUI
 {
-    StartGame = 0
+    StartGame = 0,
+    RetryGame = 1,
+    NextLevel = 2,
+    GrabReward = 3
 }
 
 public enum LevelLines
@@ -30,6 +33,11 @@ public enum EItemType
     JetPack = 6
 }
 
+public enum EEnvironmentType
+{
+    Hole = 0
+}
+
 public enum BarType
 {
     Coin = 0,
@@ -44,7 +52,8 @@ public enum PanelType
     Coins = 3,
     Menu = 4,
     LevelGame = 5,
-    Inventory = 6
+    Inventory = 6,
+    DailyReward = 7
 }
 
 public enum QuestType
