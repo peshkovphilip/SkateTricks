@@ -68,45 +68,54 @@ public class RewardController : IStarter
             itemRewardView.RewardValue = reward.Count;
             itemRewardView.RewardDay = reward.Day;
             itemRewardView.RewardImage = reward.ItemType;
-            if (_playerData.GrabRewards + 1 > reward.Day)
+            Debug.Log("rew="+_playerData.GrabRewards);
+            if (_playerData.GrabRewards < rewards.Count)
             {
-                itemRewardView.RewardActive = false;
-                itemRewardView.GrabActive = false;
-            }
-            else
-            {
-                if (_playerData.GrabRewards + 1 < reward.Day)
+                if (_playerData.GrabRewards + 1 > reward.Day)
                 {
-                    itemRewardView.RewardActive = true;
+                    itemRewardView.RewardActive = false;
                     itemRewardView.GrabActive = false;
                 }
                 else
                 {
-                    if (_playerData.GrabRewards > 0)
+                    if (_playerData.GrabRewards + 1 < reward.Day)
                     {
-                        if (IsTodayBiggerThanRewardDay())
+                        itemRewardView.RewardActive = true;
+                        itemRewardView.GrabActive = false;
+                    }
+                    else
+                    {
+                        if (_playerData.GrabRewards > 0)
+                        {
+                            if (IsTodayBiggerThanRewardDay())
+                            {
+                                itemRewardView.RewardActive = true;
+                                itemRewardView.GrabActive = true;
+                                ButtonUIView buttonUIView = itemRewardView.RewardGrab.GetComponent<ButtonUIView>();
+                                _buttonsUIModel.AddButton(buttonUIView);    
+                            }
+                            else
+                            {
+                            
+                                PanelView?.Invoke(PanelType.Menu);
+                                itemRewardView.RewardActive = true;
+                                itemRewardView.GrabActive = false;
+                            }
+                        }
+                        else
                         {
                             itemRewardView.RewardActive = true;
                             itemRewardView.GrabActive = true;
                             ButtonUIView buttonUIView = itemRewardView.RewardGrab.GetComponent<ButtonUIView>();
-                            _buttonsUIModel.AddButton(buttonUIView);    
+                            _buttonsUIModel.AddButton(buttonUIView);
                         }
-                        else
-                        {
-                            
-                            PanelView?.Invoke(PanelType.Menu);
-                            itemRewardView.RewardActive = true;
-                            itemRewardView.GrabActive = false;
-                        }
-                    }
-                    else
-                    {
-                        itemRewardView.RewardActive = true;
-                        itemRewardView.GrabActive = true;
-                        ButtonUIView buttonUIView = itemRewardView.RewardGrab.GetComponent<ButtonUIView>();
-                        _buttonsUIModel.AddButton(buttonUIView);
                     }
                 }
+            }
+            else
+            {
+                itemRewardView.RewardActive = false;
+                itemRewardView.GrabActive = false;
             }
         }      
     }
@@ -117,7 +126,7 @@ public class RewardController : IStarter
         double seconds = new TimeSpan(dateTime.Ticks).TotalSeconds;
         double secondsNow = new TimeSpan(DateTime.UtcNow.Ticks).TotalSeconds;
         float daySeconds = _playerData.GrabRewards * 24 * 60 * 60;
-        return (secondsNow > seconds + daySeconds);
+        return (secondsNow > seconds + daySeconds) && _playerData.GrabRewards < rewards.Count;
     }
 
     private void GrabReward()

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -15,13 +17,14 @@ public class PanelsController : IStarter
     private PlayerView _playerView;
     private UIController _uiController;
     
-    public PanelsController(UICanvasView uiCanvasView, RewardController rewardController, ItemView[] itemViews, PlayerView playerView, UIController uiController)
+    public PanelsController(UICanvasView uiCanvasView, RewardController rewardController, ItemView[] itemViews, PlayerView playerView, UIController uiController, List<ButtonUIView> buttons)
     {
         _uiCanvasView = uiCanvasView;
         _rewardController = rewardController;
         _itemViews = itemViews;
         _playerView = playerView;
         _uiController = uiController;
+        _buttons = buttons;
     }
     
     public void Starter()
@@ -81,10 +84,13 @@ public class PanelsController : IStarter
                 panels.Find(x => x.PanelType == PanelType.Inventory).gameObject.SetActive(true);
                 break;
             case PanelType.LevelDone:
+                ShakeButtons();
+                SlidePanel(panelType);
                 GameAnalytics.SendMessage("level_done");
                 break;
             case PanelType.LevelLose:
                 GameAnalytics.SendMessage("level_lose");
+                SlidePanel(panelType);
                 break;
         }
     }
@@ -98,6 +104,19 @@ public class PanelsController : IStarter
                 ViewPanel(PanelType.LevelDone);
             }
         }
+    }
+
+    private void ShakeButtons()
+    {
+        foreach (var button in _buttons)
+        {
+            button.gameObject.transform.DOShakeRotation(10,10f, 5, 50f).SetLoops(-1);
+        }
+    }
+
+    private void SlidePanel(PanelType panelType)
+    {
+        panels.Find(x => x.PanelType == panelType).GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, 0.25f);
     }
 
     public List<PanelView> GetPanels()
