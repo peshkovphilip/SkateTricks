@@ -56,7 +56,7 @@ public class StartPoint : MonoBehaviour
         EnvironmentController environmentController = new EnvironmentController(playerModel, environments);
         controllers.Add(environmentController);
         
-        controllers.Add(new PanelsController(uiCanvasView, rewardController, items, playerView, uiController));
+        controllers.Add(new PanelsController(uiCanvasView, rewardController, items, playerView, uiController, buttons.Buttons));
         controllers.Add(new AdsController());
         controllers.Starter();
     }

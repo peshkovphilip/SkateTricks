@@ -21,7 +21,7 @@ public class EnvironmentController : IStarter
 
     private void SetDamage(int damage)
     {
-        int formulaDamage = Convert.ToInt32(damage / 2);
+        int formulaDamage = Convert.ToInt32(damage * 2);
         foreach (EnvironmentView environment in _environments)
         {
             if (environment.Type == EEnvironmentType.Hole)

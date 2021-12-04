@@ -44,6 +44,7 @@
      <Compile Include="Assets\Scripts\StartPoint.cs" />
      <Compile Include="Assets\Scripts\Models\PlayerModel.cs" />
      <Compile Include="Assets\Scripts\Views\PlayerBodyView.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EnvironmentController.cs" />
      <Compile Include="Assets\Scripts\ETypes.cs" />
      <Compile Include="Assets\Scripts\Views\ButterflyTriggerView.cs" />
      <Compile Include="Assets\Scripts\Models\AbilityModel.cs" />
@@ -90,7 +91,6 @@
      <Compile Include="Assets\Scripts\ButtonUIView.cs" />
      <Compile Include="Assets\Scripts\Models\InventoryModelOnly.cs" />
      <Compile Include="Assets\Scripts\Controllers\BarsController.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EnvironmentController.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -342,6 +342,9 @@
      </Reference>
      <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
      <HintPath>D:/unity/SkateTricks/Library/PackageCache/com.unity.visualscripting@1.6.1/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="DOTween">
+     <HintPath>D:/unity/SkateTricks/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.iOS.Extensions.Xcode">
      <HintPath>C:/Program Files/Unity/Hub/Editor/2021.1.21f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -842,6 +845,10 @@
     <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
       <Project>{a8846707-3a53-4f89-5d30-5f21c758a2f6}</Project>
       <Name>AstarPathfindingProjectEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="DOTween.Modules.csproj">
+      <Project>{6c752c5e-390e-06af-e3f5-0cf9b1b55900}</Project>
+      <Name>DOTween.Modules</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
