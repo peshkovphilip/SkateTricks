@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -33,7 +32,8 @@ public class PanelsController : IStarter
         playerModel = Object.FindObjectOfType<PlayerModel>(true);
         panels = _uiCanvasView.Panels.ToList();
         UnActiveAllPanels();
-
+        //ViewPanel(PanelType.Loading);
+        
         if (Game.RestartGame)
         {
             ViewPanel(PanelType.LevelGame);
@@ -61,7 +61,6 @@ public class PanelsController : IStarter
         }
     }
     
-
     private void UnActiveAllPanels()
     {
         foreach (PanelView panel in panels)
@@ -69,7 +68,6 @@ public class PanelsController : IStarter
             panel.gameObject.SetActive(false);
         }
     }
-    
     
     public void ViewPanel(PanelType panelType)
     {

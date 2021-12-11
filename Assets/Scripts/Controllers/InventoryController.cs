@@ -63,7 +63,7 @@ public class InventoryController : IStarter
         if ((itemView.ItemType == EItemType.Pot) && (inventory.RemoveItem(EItemType.Flower)))
         {
             itemView.ItemType = EItemType.FlowersPot;
-            itemView.ItemSprite.sprite = Resources.Load<Sprite>("sprites/items/flower-pot_50");
+            itemView.ItemSprite.sprite = SpriteManager.SpritesMain.Find(x=>x.name == "flower-pot_50");
         }
 
         UpdateInventoryView();
@@ -83,7 +83,7 @@ public class InventoryController : IStarter
             if (inventory.Inventory.Items.Count > i)
             {
                 inventoryItemView.AllObjects.SetActive(true);
-                inventoryItemView.ItemImage.sprite = Resources.Load<Sprite>("sprites/items/"+inventory.Inventory.Items[i].Image);  
+                inventoryItemView.ItemImage.sprite = SpriteManager.SpritesMain.Find(x=>x.name == inventory.Inventory.Items[i].Image);  
                 inventoryItemView.ItemCount.text = inventory.Inventory.Items[i].Count.ToString();   
             }
             else

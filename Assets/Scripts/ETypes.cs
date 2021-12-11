@@ -12,7 +12,15 @@ public enum TapUI
     StartGame = 0,
     RetryGame = 1,
     NextLevel = 2,
-    GrabReward = 3
+    GrabReward = 3,
+    SwitchToEn = 4,
+    SwitchToRu = 5
+}
+
+public enum ELanguage
+{
+    English = 0,
+    Russian = 1
 }
 
 public enum LevelLines
@@ -53,7 +61,8 @@ public enum PanelType
     Menu = 4,
     LevelGame = 5,
     Inventory = 6,
-    DailyReward = 7
+    DailyReward = 7,
+    Loading = 8
 }
 
 public enum QuestType
@@ -76,4 +85,9 @@ public enum EAbilityActionType
     Minus = 2,
     Multi = 3,
     Clear = 4
+}
+
+public enum ENotificationType
+{
+    Miss = 0
 }
