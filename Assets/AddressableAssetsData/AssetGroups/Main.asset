@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Main
+  m_EditorClassIdentifier: 
+  m_GroupName: Main
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 6e14a4d4283ad40449aedb4e34fcdc1c
+  m_SerializeEntries:
+  - m_GUID: aeb0ebf7e1952bf47975e0182388887f
+    m_Address: Assets/Resources_moved/sprites/items/coin.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - main
+  - m_GUID: e30e6bb894db45f4387e1cc3a69c2033
+    m_Address: Assets/Resources_moved/sprites/items/coin_50.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - main
+  - m_GUID: 4e327cb402e562644b96276d37083f82
+    m_Address: Assets/Resources_moved/sprites/items/flower-pot_50.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - main
+  - m_GUID: 71d346b6b17b0ef43a8629bf54a34433
+    m_Address: Assets/Resources_moved/sprites/items/flowers.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - main
+  - m_GUID: b60efb10f480b7b4cb8673fecaf430e2
+    m_Address: Assets/Resources_moved/sprites/items/flower-pot.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - main
+  - m_GUID: 3f5631d75f375c44da4d9449e08b6e12
+    m_Address: Assets/Resources_moved/sprites/items/jetpack.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - main
+  - m_GUID: b64bf2da8b4425b46b8aa3f2630e04ea
+    m_Address: Assets/Resources_moved/sprites/items/flowers_50.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - main
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2caa55055eec4914480c473b976d9f56, type: 2}
+  m_SchemaSet:
+    m_Schemas: []

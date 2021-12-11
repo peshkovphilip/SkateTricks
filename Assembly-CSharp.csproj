@@ -91,6 +91,9 @@
      <Compile Include="Assets\Scripts\ButtonUIView.cs" />
      <Compile Include="Assets\Scripts\Models\InventoryModelOnly.cs" />
      <Compile Include="Assets\Scripts\Controllers\BarsController.cs" />
+     <Compile Include="Assets\Scripts\SpriteManager.cs" />
+     <Compile Include="Assets\Scripts\Controllers\SceneController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\NotificationManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -340,11 +343,14 @@
      <Reference Include="Pathfinding.Ionic.Zip.Reduced">
      <HintPath>D:/unity/SkateTricks/Assets/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
      </Reference>
+     <Reference Include="DOTween">
+     <HintPath>D:/unity/SkateTricks/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
      <HintPath>D:/unity/SkateTricks/Library/PackageCache/com.unity.visualscripting@1.6.1/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
      </Reference>
-     <Reference Include="DOTween">
-     <HintPath>D:/unity/SkateTricks/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+     <Reference Include="Newtonsoft.Json">
+     <HintPath>D:/unity/SkateTricks/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.iOS.Extensions.Xcode">
      <HintPath>C:/Program Files/Unity/Hub/Editor/2021.1.21f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -832,8 +838,36 @@
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.Addressables">
+     <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/Unity.Addressables.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Addressables.Editor">
+     <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/Unity.Addressables.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEditor.CacheServer">
+     <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/UnityEditor.CacheServer.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ResourceManager">
+     <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/Unity.ResourceManager.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ScriptableBuildPipeline">
+     <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ScriptableBuildPipeline.Editor">
+     <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Localization.Editor">
+     <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/Unity.Localization.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Localization">
+     <HintPath>D:/unity/SkateTricks/Library/ScriptAssemblies/Unity.Localization.dll</HintPath>
+     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="DOTween.Modules.csproj">
+      <Project>{6c752c5e-390e-06af-e3f5-0cf9b1b55900}</Project>
+      <Name>DOTween.Modules</Name>
+    </ProjectReference>
     <ProjectReference Include="PackageToolsEditor.csproj">
       <Project>{ddc17f93-b879-3fa1-0a6c-adee817fbebf}</Project>
       <Name>PackageToolsEditor</Name>
@@ -845,10 +879,6 @@
     <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
       <Project>{a8846707-3a53-4f89-5d30-5f21c758a2f6}</Project>
       <Name>AstarPathfindingProjectEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="DOTween.Modules.csproj">
-      <Project>{6c752c5e-390e-06af-e3f5-0cf9b1b55900}</Project>
-      <Name>DOTween.Modules</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

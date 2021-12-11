@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 
 public class UIController : IStarter
@@ -33,7 +34,13 @@ public class UIController : IStarter
                 break;
             case TapUI.NextLevel:
                 NextLevel();
-                break;            
+                break;    
+            case TapUI.SwitchToEn:
+                SwitchLanguage(ELanguage.English);
+                break; 
+            case TapUI.SwitchToRu:
+                SwitchLanguage(ELanguage.Russian);
+                break; 
         }
     }
 
@@ -56,5 +63,10 @@ public class UIController : IStarter
     {
         SceneManager.LoadScene("MainScene");
         GameAnalytics.SendMessage("next_level");
+    }
+
+    private void SwitchLanguage(ELanguage language)
+    {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[(int)language];
     }
 }

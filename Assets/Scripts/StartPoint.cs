@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +35,25 @@ public class StartPoint : MonoBehaviour
         items = FindObjectsOfType<ItemView>(true);
         environments = FindObjectsOfType<EnvironmentView>(true);
         panels = uiCanvasView.Panels.ToList();
+        
+        controllers.Add(new SceneController(panels));
+        controllers.Starter();
 
+        StartCoroutine(AwaitSpritesLoading());
+    }
+
+    private IEnumerator AwaitSpritesLoading()
+    {   
+        while (!SpriteManager.LoadingComplete)
+        {
+            yield return new WaitForSeconds(1f);    
+        }
+
+        LoadAllControllers();
+    }
+
+    private void LoadAllControllers()
+    {
         PlayerController playerController = new PlayerController(playerView, playerModel, items, playerData, environments);
         controllers.Add(playerController);
 
